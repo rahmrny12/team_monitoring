@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard', ['title' => 'Dashboard']);
 });
+
+Route::get('dashboard', function () {
+    return view('dashboard', ['title' => 'Dashboard']);
+})->name('dashboard');
+
+Route::resource('projects', ProjectController::class);

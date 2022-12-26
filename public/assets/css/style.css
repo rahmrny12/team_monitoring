@@ -1,0 +1,37 @@
+:root {
+	--blue: #56a8ff;
+	--black: #8e7083;
+}
+
+/* sidebar */
+
+.nav-link {
+	color: var(--black);
+}
+
+.nav-link:hover {
+	color: var(--blue);
+}
+
+.nav-item .nav-link {
+	border-left: 4px solid transparent;
+}
+
+.nav-item.active .nav-link {
+	border-color: var(--blue);
+}
+
+.nav-item.active .nav-link {
+	color: var(--blue);
+}
+
+.collapse-item:hover {
+	background-color: transparent !important;
+	color: var(--blue) !important;
+}
+
+/* topbar */
+
+#open-timer-btn {
+	color: var(--blue);	
+}
