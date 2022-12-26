@@ -34,7 +34,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        echo $request->input('title');
     }
 
     /**
