@@ -21,7 +21,7 @@
         <div id="projectNav" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-none collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('projects.index') }}">Projects</a>
-                <a class="collapse-item" href="{{ route('projects.index') }}">Members</a>
+                <a class="collapse-item" href="{{ route('members') }}">Members</a>
                 <a class="collapse-item" href="{{ route('projects.index') }}">To-dos</a>
             </div>
         </div>

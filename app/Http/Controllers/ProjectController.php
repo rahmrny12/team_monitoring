@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
+use App\Models\Project;
+use App\Models\UserProject;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -13,28 +16,28 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('projects.index', ['title' => 'Project Management']);
+        $projects = Project::leftJoin('clients', 'clients.id', '=', 'projects.client_id')->get(['projects.id', 'title', 'description', 'clients.name as client', 'status']);
+        $clients = Client::latest()->get();
+        $title = 'Project Management';
+        return view('projects.index', compact('title', 'projects', 'clients'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        echo $request->input('title');
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+            'client' => 'required',
+        ]);
+
+        Project::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => 'progress',
+            'client_id' => $request->client,
+        ]);
+
+        return to_route('projects.index')->with(['success' => 'Berhasil menambahkan projek baru!']);
     }
 
     /**
@@ -43,20 +46,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // get dari model lalu letakkan di parameter data
+        return response()->json([
+            'success' => true,
+            'data'    => $project,
+        ]);
     }
 
     /**
@@ -66,9 +62,21 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        
+        $project->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => 'progress',
+            'client_id' => $request->client,
+        ]);
+
+        return to_route('projects.index')->with(['success' => 'Berhasil mengedit projek baru!']);
     }
 
     /**
@@ -77,8 +85,19 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return to_route('projects.index')->with(['success' => 'Berhasil menghapus data projek!']);
+    }
+    
+    public function archive(Project $project)
+    {
+        $project->update([
+            'status' => 'archive',
+        ]);
+
+        return to_route('projects.index')->with(['success' => 'Berhasil mengarsipkan data projek!']);
     }
 }

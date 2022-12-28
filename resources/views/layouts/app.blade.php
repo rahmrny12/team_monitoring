@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/sbadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
+    <script src="{{ asset('assets/sbadmin/vendor/jquery/jquery.min.js') }}"></script>
 
     @vite(['resources/js/app.js'])
 </head>
@@ -92,7 +94,6 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('assets/sbadmin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -100,6 +101,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/sbadmin/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/token-input/src/jquery.tokeninput.js') }}"></script>
 </body>
 
 </html>
