@@ -33,5 +33,16 @@
 /* topbar */
 
 #open-timer-btn {
-	color: var(--blue);	
+	color: var(--blue);
+}
+
+/* login */
+.h-custom {
+	height: calc(100% - 73px);
+}
+
+@media (max-width: 450px) {
+	.h-custom {
+		height: 100%;
+	}
 }

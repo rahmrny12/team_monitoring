@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Project;
+use App\Models\User;
 use App\Models\UserProject;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::leftJoin('clients', 'clients.id', '=', 'projects.client_id')->get(['projects.id', 'title', 'description', 'clients.name as client', 'status']);
+        $projects = Project::leftJoin('clients', 'clients.id', '=', 'projects.client_id')
+            ->get(['projects.id', 'title', 'description', 'clients.name as client', 'status']);
+
+        // $projects = Project::rightJoin('user_projects', 'user_projects.project_id', '=', 'projects.id')
+        //                 ->join('users', 'user_projects.user_id', '=', 'users.id')->get();
         $clients = Client::latest()->get();
+
         $title = 'Project Management';
         return view('projects.index', compact('title', 'projects', 'clients'));
     }
@@ -68,7 +74,7 @@ class ProjectController extends Controller
             'title' => 'required',
             'description' => 'required',
         ]);
-        
+
         $project->update([
             'title' => $request->title,
             'description' => $request->description,
@@ -91,7 +97,7 @@ class ProjectController extends Controller
 
         return to_route('projects.index')->with(['success' => 'Berhasil menghapus data projek!']);
     }
-    
+
     public function archive(Project $project)
     {
         $project->update([

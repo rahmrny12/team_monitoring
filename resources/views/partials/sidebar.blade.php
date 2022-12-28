@@ -22,7 +22,7 @@
             <div class="bg-none collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('projects.index') }}">Projects</a>
                 <a class="collapse-item" href="{{ route('members') }}">Members</a>
-                <a class="collapse-item" href="{{ route('projects.index') }}">To-dos</a>
+                <a class="collapse-item" href="{{ route('todos.index') }}">To-dos</a>
             </div>
         </div>
     </li>

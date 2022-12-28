@@ -9,18 +9,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ $title }}</title>
+    <title>{{ isset($title) ? $title : 'Team Monitoring App' }}</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
     <link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
-    
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/sbadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    
+
     <script src="{{ asset('assets/sbadmin/vendor/jquery/jquery.min.js') }}"></script>
 
     @vite(['resources/js/app.js'])
@@ -31,7 +31,9 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        @include('partials.sidebar')
+        @if (isset($title))
+            @include('partials.sidebar')
+        @endif
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -39,7 +41,9 @@
             <!-- Main Content -->
             <div id="content">
 
-                @include('partials.topbar')
+                @if (isset($title))
+                    @include('partials.topbar')
+                @endif
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -87,7 +91,10 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="btn btn-primary" type="submit">Logout</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -19,26 +19,20 @@
             <tr>
                 <th scope="col">Project Name</th>
                 <th scope="col">Client</th>
-                <th scope="col">Members</th>
                 <th scope="col">To-dos</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @forelse ($projects as $project)
-                <tr>
-                    <th>
-                        {{-- <img class="img-fluid rounded-circle mr-2" width="40px"
-                            src="{{ asset('assets/images/default-profile.jpg') }}"> --}}
-                        {{ $project->title }}
-                    </th>
+            <tr>
+                <th>
+                    {{-- <img class="img-fluid rounded-circle mr-2" width="40px"
+                    src="{{ asset('assets/images/default-profile.jpg') }}"> --}}
+                    {{ $project->title }}
+                </th>
                     <td class="{{ $project->client ?? 'text-muted' }}">
                         {{ $project->client ?: 'No Client' }}</td>
-                    <td>
-                        <a href="{{ route('project-members', $project->id) }}">
-                            <span class="badge badge-primary p-2">Rahmat Rendy Prayogo</span>
-                        </a>
-                    </td>
                     <td>-</td>
                     <td>
                         <div class="dropdown">
@@ -108,7 +102,7 @@
                                     <div class="col-10 mb-4">
                                         <label for="client" class="form-label">Client</label>
                                         <select id="client" name="client" class="form-select">
-                                            <option selected>Choose client...</option>
+                                            <option value="" selected>Choose client...</option>
                                             @forelse ($clients as $client)
                                                 <option value="{{ $client->id }}">{{ $client->name }}</option>
                                             @empty
@@ -168,7 +162,7 @@
                                     <div class="col-12">
                                         <label for="client" class="form-label">Client</label>
                                         <select id="client" name="client" class="form-select">
-                                            <option value="1" selected>Choose client...</option>
+                                            <option value="" selected>Choose client...</option>
                                             @forelse ($clients as $client)
                                                 <option value="{{ $client->id }}">{{ $client->name }}</option>
                                             @empty
